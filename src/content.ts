@@ -8,7 +8,8 @@ export const content = {
     { id: 'home', label: 'ΑΡΧΙΚΗ' },
     { id: 'project', label: 'ΤΟ ΕΡΓΟ' },
     { id: 'partners', label: 'ΣΥΝΕΡΓΑΖΟΜΕΝΟΙ ΦΟΡΕΙΣ' },
-    { id: 'news', label: 'ΝΕΑ & ΑΝΑΚΟΙΝΩΣΕΙΣ' },
+    { id: 'team', label: 'ΕΡΕΥΝΗΤΙΚΗ ΟΜΑΔΑ' },
+    { id: 'dissemination', label: 'ΔΙΑΧΥΣΗ ΕΡΓΟΥ' },
     { id: 'contact', label: 'ΕΠΙΚΟΙΝΩΝΙΑ' },
   ],
   home: {
@@ -17,9 +18,9 @@ export const content = {
       subtitle: 'Personalized Education Framework for AI-Enabled Adaptive and AR-Enhanced Learning',
       description: 'Ένα πλαίσιο εξατομικευμένης εκπαίδευσης που αξιοποιεί την Τεχνητή Νοημοσύνη και την Επαυξημένη Πραγματικότητα για την αναβάθμιση της μαθησιακής εμπειρίας στο Moodle.',
       cta: [
-        { label: 'ΑΠΟΤΕΛΕΣΜΑΤΑ', target: 'results' },
+        { label: 'ΠΥΛΩΝΕΣ', target: 'pillars' },
         { label: 'ΤΕΧΝΟΛΟΓΙΑ', target: 'tech' },
-        { label: 'ΔΗΜΟΣΙΕΥΣΕΙΣ', target: 'publications' },
+        { label: 'ΚΑΙΝΟΤΟΜΙΑ', target: 'innovation' },
       ],
     },
     pillars: [
@@ -54,6 +55,10 @@ export const content = {
         content: 'Το έργο απευθύνεται τόσο στην τριτοβάθμια εκπαίδευση όσο και στην εταιρική κατάρτιση, προσφέροντας λύσεις που μειώνουν το κόστος παραγωγής περιεχομένου και αυξάνουν την αποτελεσματικότητα της εκπαίδευσης.',
       },
     ],
+    images: [
+      'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1000'
+    ]
   },
   tech: {
     title: 'Τεχνολογική Υλοποίηση',
@@ -176,10 +181,10 @@ export const content = {
   partners: {
     title: 'Συνεργαζόμενοι Φορείς',
     list: [
-      { name: 'Διεθνές Πανεπιστήμιο της Ελλάδος (ΔΙΠΑΕ)', description: 'Επικεφαλής φορέας του έργου, υπεύθυνος για τον επιστημονικό σχεδιασμό και την υλοποίηση των αλγορίθμων AI.' },
-      { name: 'Εκπαιδευτικός Συνεργάτης', description: 'Φορέας παροχής εκπαιδευτικού περιεχομένου και πεδίο πιλοτικής εφαρμογής του συστήματος.' },
-      { name: 'Τεχνολογικοί Συνεργάτες', description: 'Εταιρείες πληροφορικής που συμβάλλουν στη βιομηχανική αξιοποίηση των αποτελεσμάτων.' },
+      { name: 'Διεθνές Πανεπιστήμιο της Ελλάδος (ΔΙΠΑΕ)', description: 'Επικεφαλής φορέας του έργου, υπεύθυνος για τον επιστημονικό σχεδιασμό και την υλοποίηση των αλγορίθμων AI.', image: 'https://www.ihu.gr/wp-content/uploads/2024/01/ihu-gr-logo-created17m519.png' },
+      { name: 'Εκπαιδευτήρια ΑΘΗΝΑ', description: 'Φορέας παροχής εκπαιδευτικού περιεχομένου και πεδίο πιλοτικής εφαρμογής του συστήματος.', image: 'https://athina-sch.gr/wp-content/uploads/2024/12/athina-logo-3.png' },
     ],
+    footerText: 'Η συνεργασία των δύο φορέων εξασφαλίζει τη σύνδεση της ακαδημαϊκής έρευνας με την εκπαιδευτική πράξη, δημιουργώντας ένα ολοκληρωμένο πλαίσιο για την ανάπτυξη και αξιολόγηση του Intelligent Moodle.'
   },
   news: {
     title: 'Νέα & Ανακοινώσεις',

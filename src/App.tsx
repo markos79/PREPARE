@@ -38,7 +38,10 @@ export default function App() {
   };
 
   const navigateTo = (id: string) => {
-    if (['tech', 'innovation', 'results', 'publications', 'team', 'dissemination'].includes(id)) {
+    if (id === 'results') {
+      setActiveTab('project');
+      setTimeout(() => scrollToSection('results-section'), 100);
+    } else if (['tech', 'innovation', 'pillars'].includes(id)) {
       setActiveTab('home');
       setTimeout(() => scrollToSection(`${id}-section`), 100);
     } else {
@@ -53,14 +56,12 @@ export default function App() {
       case 'home': return <Home navigateTo={navigateTo} />;
       case 'project': return <Project />;
       case 'partners': return <Partners />;
-      case 'news': return <News />;
+      case 'dissemination': return <Dissemination />;
       case 'contact': return <Contact />;
       // These are now part of the Home page or sub-sections
       case 'tech': return <Technology />;
       case 'innovation': return <Innovation />;
       case 'results': return <Results />;
-      case 'publications': return <Publications />;
-      case 'dissemination': return <Dissemination />;
       case 'team': return <Team />;
       default: return <Home navigateTo={navigateTo} />;
     }
@@ -395,7 +396,7 @@ function Home({ navigateTo }: { navigateTo: (id: string) => void }) {
       </section>
 
       {/* Pillars Section */}
-      <section className="py-16 bg-[#F8FAFC] border-b border-slate-100">
+      <section id="pillars-section" className="py-16 bg-[#F8FAFC] border-b border-slate-100 scroll-mt-32">
         <div className="max-w-7xl mx-auto px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-slate-900 tracking-tight">Βασικοί Πυλώνες</h2>
@@ -445,38 +446,6 @@ function Home({ navigateTo }: { navigateTo: (id: string) => void }) {
           </div>
           <Innovation />
         </div>
-
-        <div id="results-section" className="scroll-mt-32 py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-slate-900 tracking-tight">Αποτελέσματα</h2>
-            <div className="w-20 h-1.5 bg-blue-600 rounded-full opacity-80" />
-          </div>
-          <Results />
-        </div>
-
-        <div id="publications-section" className="scroll-mt-32 py-16 bg-[#F8FAFC] border-y border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-12 text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-slate-900 tracking-tight">Δημοσιεύσεις</h2>
-            <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full opacity-80" />
-          </div>
-          <Publications />
-        </div>
-
-        <div id="team-section" className="scroll-mt-32 py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-slate-900 tracking-tight">Ερευνητική Ομάδα</h2>
-            <div className="w-20 h-1.5 bg-blue-600 rounded-full opacity-80" />
-          </div>
-          <Team />
-        </div>
-
-        <div id="dissemination-section" className="scroll-mt-32 py-16 bg-[#F8FAFC] border-y border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-slate-900 tracking-tight">Διάχυση & Συνέδρια</h2>
-            <div className="w-20 h-1.5 bg-blue-600 rounded-full opacity-80" />
-          </div>
-          <Dissemination />
-        </div>
       </section>
 
       {/* Funding Section */}
@@ -514,7 +483,7 @@ function Project() {
         <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full opacity-80" />
       </header>
       
-      <div className="space-y-12 sm:space-y-16">
+      <div className="space-y-12 sm:space-y-16 mb-20">
         {content.project.sections.map((section, idx) => (
           <motion.div 
             key={idx} 
@@ -539,6 +508,30 @@ function Project() {
             </div>
           </motion.div>
         ))}
+      </div>
+
+      {/* Project Images */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+        {content.project.images?.map((img, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="aspect-video rounded-[2rem] overflow-hidden shadow-xl border border-slate-100"
+          >
+            <img src={img} alt={`Project visualization ${i + 1}`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Results Section moved here */}
+      <div className="pt-16 border-t border-slate-100">
+        <header className="mb-16 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-slate-900 tracking-tight">{content.results.title}</h2>
+          <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full opacity-80" />
+        </header>
+        <Results />
       </div>
     </div>
   );
@@ -677,79 +670,86 @@ function Results() {
   );
 }
 
-function Publications() {
-  return (
-    <div className="max-w-5xl mx-auto px-8">
-      <div className="space-y-8">
-        {content.publications.list.map((pub, i) => (
-          <motion.div 
-            key={i} 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] border border-slate-100 bg-white hover:border-blue-200 hover:shadow-xl transition-all duration-500 group"
-          >
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-              <span className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-slate-50 text-slate-500 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] border border-slate-100">
-                {pub.type}
-              </span>
-              <span className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-blue-50 text-blue-600 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] border border-blue-100/50">
-                {pub.year}
-              </span>
-            </div>
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 text-slate-900 leading-tight tracking-tight group-hover:text-blue-600 transition-colors duration-300">{pub.title}</h3>
-            <p className="text-slate-500 mb-6 sm:mb-8 font-light text-base sm:text-lg italic">{pub.authors}</p>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 sm:pt-8 border-t border-slate-50">
-              <span className="text-xs sm:text-sm font-medium text-slate-400 font-sans">{pub.venue}</span>
-              {pub.link ? (
-                <a 
-                  href={pub.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn"
-                >
-                  View Paper 
-                  <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                </a>
-              ) : (
-                <button className="text-blue-600 hover:text-blue-700 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn">
-                  View Paper 
-                  <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                </button>
-              )}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function Dissemination() {
   return (
-    <div className="max-w-7xl mx-auto px-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {content.dissemination.activities.map((activity, i) => (
-          <motion.div 
-            key={i} 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="p-10 rounded-[3rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-inner">
-              {i === 0 && <Globe size={28} />}
-              {i === 1 && <GraduationCap size={28} />}
-              {i === 2 && <Smartphone size={28} />}
-              {i === 3 && <Zap size={28} />}
-              {i === 4 && <Users size={28} />}
-              {i === 5 && <ArrowRight size={28} />}
-            </div>
-            <h3 className="text-2xl font-bold mb-4 text-slate-900 tracking-tight">{activity.title}</h3>
-            <p className="text-slate-500 leading-relaxed font-light text-lg">{activity.description}</p>
-          </motion.div>
-        ))}
+    <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16">
+      <header className="mb-16 text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-slate-900 tracking-tight font-sans">Διάχυση Έργου</h1>
+        <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full opacity-80" />
+      </header>
+
+      {/* Activities Section */}
+      <div className="mb-24">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-slate-900 tracking-tight border-l-4 border-blue-600 pl-6">Διάχυση & Συνέδρια</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {content.dissemination.activities.map((activity, i) => (
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="p-10 rounded-[3rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-inner">
+                {i === 0 && <Globe size={28} />}
+                {i === 1 && <GraduationCap size={28} />}
+                {i === 2 && <Smartphone size={28} />}
+                {i === 3 && <Zap size={28} />}
+                {i === 4 && <Users size={28} />}
+                {i === 5 && <ArrowRight size={28} />}
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-slate-900 tracking-tight">{activity.title}</h3>
+              <p className="text-slate-500 leading-relaxed font-light text-lg">{activity.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Publications Section */}
+      <div className="pt-16 border-t border-slate-100">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-slate-900 tracking-tight border-l-4 border-blue-600 pl-6">Δημοσιεύσεις</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {content.publications.list.map((pub, i) => (
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] border border-slate-100 bg-white hover:border-blue-200 hover:shadow-xl transition-all duration-500 group"
+            >
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                <span className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-slate-50 text-slate-500 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] border border-slate-100">
+                  {pub.type}
+                </span>
+                <span className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-blue-50 text-blue-600 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] border border-blue-100/50">
+                  {pub.year}
+                </span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-slate-900 leading-tight tracking-tight group-hover:text-blue-600 transition-colors duration-300">{pub.title}</h3>
+              <p className="text-slate-500 mb-6 sm:mb-8 font-light text-base sm:text-lg italic">{pub.authors}</p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 sm:pt-8 border-t border-slate-50">
+                <span className="text-xs sm:text-sm font-medium text-slate-400 font-sans">{pub.venue}</span>
+                {pub.link ? (
+                  <a 
+                    href={pub.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn"
+                  >
+                    View Paper 
+                    <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                  </a>
+                ) : (
+                  <button className="text-blue-600 hover:text-blue-700 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn">
+                    View Paper 
+                    <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -757,7 +757,11 @@ function Dissemination() {
 
 function Team() {
   return (
-    <div className="max-w-7xl mx-auto px-8">
+    <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16">
+      <header className="mb-16 text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-slate-900 tracking-tight font-sans">{content.team.title}</h1>
+        <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full opacity-80" />
+      </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {content.team.members.map((member, i) => (
           <motion.div 
@@ -796,7 +800,10 @@ function Partners() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+      <div className={cn(
+        "grid grid-cols-1 gap-8 sm:gap-10",
+        content.partners.list.length === 2 ? "md:grid-cols-2 max-w-4xl mx-auto" : "md:grid-cols-3"
+      )}>
         {content.partners.list.map((partner, i) => (
           <motion.div 
             key={i} 
@@ -806,14 +813,31 @@ function Partners() {
             transition={{ delay: i * 0.1 }}
             className="p-8 sm:p-10 md:p-12 rounded-[2rem] sm:rounded-[3rem] bg-slate-50 border border-slate-100 text-center flex flex-col items-center group hover:bg-white hover:shadow-xl transition-all duration-500"
           >
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shadow-sm flex items-center justify-center mb-8 sm:mb-10 group-hover:scale-110 transition-transform duration-500">
-              {i === 0 ? <GraduationCap size={48} className="text-blue-600 sm:size-[56px]" /> : <Globe size={48} className="text-slate-300 sm:size-[56px]" />}
+            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 sm:mb-10 group-hover:scale-110 transition-transform duration-500 p-6">
+              {partner.image ? (
+                <img src={partner.image} alt={partner.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+              ) : (
+                i === 0 ? <GraduationCap size={48} className="text-blue-600 sm:size-[56px]" /> : <Globe size={48} className="text-slate-300 sm:size-[56px]" />
+              )}
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-slate-900 tracking-tight">{partner.name}</h3>
             <p className="text-slate-500 leading-relaxed font-light text-base sm:text-lg">{partner.description}</p>
           </motion.div>
         ))}
       </div>
+
+      {content.partners.footerText && (
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 max-w-3xl mx-auto text-center"
+        >
+          <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed italic">
+            "{content.partners.footerText}"
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }
