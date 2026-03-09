@@ -16,7 +16,7 @@ export const content = {
     hero: {
       title: 'PREPARE',
       subtitle: 'Personalized Education Framework for AI-Enabled Adaptive and AR-Enhanced Learning',
-      description: 'Ένα πλαίσιο εξατομικευμένης εκπαίδευσης που αξιοποιεί την Τεχνητή Νοημοσύνη και την Επαυξημένη Πραγματικότητα για την αναβάθμιση της μαθησιακής εμπειρίας στο Moodle.',
+      description: 'Επαύξηση της Μαθησιακής Εμπειρίας μέσω Εξατομικευμένης και Δυναμικής Χρήσης Εργαλείων Τεχνητής Νοημοσύνης σε LMS: Μια Καινοτόμος Προσέγγιση για Προσαρμοσμένη Εκπαίδευση',
       cta: [
         { label: 'ΠΥΛΩΝΕΣ', target: 'pillars' },
         { label: 'ΤΕΧΝΟΛΟΓΙΑ', target: 'tech' },
