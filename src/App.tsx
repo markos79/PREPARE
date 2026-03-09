@@ -453,11 +453,19 @@ function Home({ navigateTo }: { navigateTo: (id: string) => void }) {
         <div className="p-8 sm:p-12 md:p-16 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] bg-white border border-slate-100 text-slate-900 relative overflow-hidden shadow-[0_30px_100px_rgb(0,0,0,0.03)]">
           <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-blue-50/50 rounded-full -translate-y-1/2 translate-x-1/2 blur-[100px] -z-10" />
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div className="max-w-2xl text-center lg:text-left">
+            <div className="max-w-3xl text-center lg:text-left">
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 tracking-tight">Χρηματοδότηση Έργου</h2>
-              <p className="text-slate-500 text-lg sm:text-xl leading-relaxed font-light">
-                Το έργο υλοποιείται στο πλαίσιο της δράσης «Ερευνώ – Δημιουργώ – Καινοτομώ» και συγχρηματοδοτείται από την Ελλάδα και την Ευρωπαϊκή Ένωση μέσω του Επιχειρησιακού Προγράμματος Ανταγωνιστικότητα, Επιχειρηματικότητα και Καινοτομία (ΕΠΑνΕΚ).
-              </p>
+              <div className="space-y-4 text-slate-600 text-lg sm:text-xl leading-relaxed font-light">
+                <p>
+                  <span className="font-bold text-slate-900">Προϋπολογισμός έργου:</span> 525.905,00 €
+                </p>
+                <p>
+                  <span className="font-bold text-slate-900">Χρηματοδότηση ΕΕ:</span> 365.137,50 €
+                </p>
+                <p className="text-base sm:text-lg">
+                  Το έργο υλοποιείται στο πλαίσιο της δράσης «Προώθηση της ποιότητας, της καινοτομίας και της εξωστρέφειας στα πανεπιστήμια» (Strategy for Excellence in Universities & Innovation) (ID 16289)» του Ταμείου Ανάκαμψης και Ανθεκτικότητας.
+                </p>
+              </div>
             </div>
             <a 
               href="https://www.epiteliki.minedu.gov.gr/?page_id=4083&lang=el" 
